@@ -1,17 +1,16 @@
-package org.fest.asstions.conditions.android;
+package org.fest.assertions.conditions.android;
 
 import android.app.Activity;
 import android.content.Intent;
 
-import com.xtremelabs.robolectric.shadows.ShadowActivity;
-import com.xtremelabs.robolectric.shadows.ShadowIntent;
-
 import org.fest.assertions.core.Condition;
+import org.robolectric.shadows.ShadowActivity;
+import org.robolectric.shadows.ShadowIntent;
 
 import java.io.Serializable;
 
-import static com.xtremelabs.robolectric.Robolectric.shadowOf;
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.robolectric.Robolectric.shadowOf;
 
 public class ActivityStartedCondition extends Condition<Activity> {
 

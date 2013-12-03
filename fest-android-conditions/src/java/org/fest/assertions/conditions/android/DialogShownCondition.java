@@ -1,9 +1,8 @@
-package org.fest.asstions.conditions.android;
+package org.fest.assertions.conditions.android;
 
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-
 import org.fest.assertions.core.Condition;
 
 import static java.lang.String.format;
@@ -29,7 +28,7 @@ public class DialogShownCondition extends Condition<FragmentActivity> {
         return dialogFragment != null;
     }
 
-    public static DialogShownCondition popedUpDialog(String dialogTag) {
+    public static DialogShownCondition shownDialog(String dialogTag) {
         return new DialogShownCondition(dialogTag);
     }
 }

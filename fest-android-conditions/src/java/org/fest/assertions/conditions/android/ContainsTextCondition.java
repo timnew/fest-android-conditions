@@ -1,15 +1,15 @@
-package org.fest.asstions.conditions.android;
+package org.fest.assertions.conditions.android;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import org.fest.assertions.core.Condition;
 
 import static java.lang.String.format;
 
 public class ContainsTextCondition extends Condition<View> {
     public static final String DESCRIPTION_TEMPLATE = "text \"%s\"";
+    public static final ContainsTextCondition NO_TEXT = new ContainsTextCondition("");
     private final String expectedText;
 
     public ContainsTextCondition(String expectedText) {
@@ -30,11 +30,32 @@ public class ContainsTextCondition extends Condition<View> {
                 if (matches(childView)) return true;
             }
         }
+
         if (view instanceof TextView) {
             TextView textView = (TextView) view;
-            return textView.getText().toString().equals(expectedText);
+            return containsText(textView) || containsHint(textView);
         }
+
         return false;
+    }
+
+    private boolean containsText(TextView textView) {
+        String text = textView.getText().toString();
+        return expectedText.equals(text);
+    }
+
+    private boolean containsHint(TextView textView) {
+        String text = textView.getText().toString();
+        CharSequence hintSequence = textView.getHint();
+        String hintText = hintSequence == null ? null : hintSequence.toString();
+
+        boolean hintTextIsDisplayed = text.equals("");
+
+        return hintTextIsDisplayed && expectedText.equals(hintText);
+    }
+
+    public static ContainsTextCondition text(Object expectedText) {
+        return new ContainsTextCondition(expectedText.toString());
     }
 
     public static ContainsTextCondition text(String expectedText) {

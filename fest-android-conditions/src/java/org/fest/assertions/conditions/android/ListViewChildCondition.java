@@ -1,9 +1,8 @@
-package org.fest.asstions.conditions.android;
+package org.fest.assertions.conditions.android;
 
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
 import org.fest.assertions.core.Condition;
 
 import static java.lang.String.format;

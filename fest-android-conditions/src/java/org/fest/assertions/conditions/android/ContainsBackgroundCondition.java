@@ -1,12 +1,11 @@
-package org.fest.asstions.conditions.android;
+package org.fest.assertions.conditions.android;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.xtremelabs.robolectric.Robolectric;
-
 import org.fest.assertions.core.Condition;
+import org.robolectric.Robolectric;
 
 public class ContainsBackgroundCondition extends Condition<View> {
     public static final String DESCRIPTION = "background";
@@ -22,7 +21,7 @@ public class ContainsBackgroundCondition extends Condition<View> {
     public boolean matches(View view) {
         Drawable background = view.getBackground();
 
-        if(expectedBackground.equals(background))
+        if (expectedBackground.equals(background))
             return true;
 
         if (view instanceof ViewGroup) {
