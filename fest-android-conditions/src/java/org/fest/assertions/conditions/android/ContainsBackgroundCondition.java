@@ -1,5 +1,6 @@
 package org.fest.assertions.conditions.android;
 
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,5 +44,13 @@ public class ContainsBackgroundCondition extends Condition<View> {
 
     public static ContainsBackgroundCondition background(Drawable background) {
         return new ContainsBackgroundCondition(background);
+    }
+
+    public static ContainsBackgroundCondition backgroundColor(int color) {
+        return new ContainsBackgroundCondition(new ColorDrawable(color));
+    }
+
+    public static ContainsBackgroundCondition backgroundResColor(int colorId) {
+        return new ContainsBackgroundCondition(new ColorDrawable(Robolectric.application.getResources().getColor(colorId)));
     }
 }

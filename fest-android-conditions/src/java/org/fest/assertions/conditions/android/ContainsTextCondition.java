@@ -3,7 +3,9 @@ package org.fest.assertions.conditions.android;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import org.fest.assertions.core.Condition;
+import org.robolectric.Robolectric;
 
 import static java.lang.String.format;
 
@@ -64,5 +66,15 @@ public class ContainsTextCondition extends Condition<View> {
 
     public static ContainsTextCondition text(String format, Object... args) {
         return new ContainsTextCondition(format(format, args));
+    }
+
+    public static ContainsTextCondition text(int templateResourceId, Object... args) {
+        return new ContainsTextCondition(Robolectric.application.getString(templateResourceId, args));
+    }
+
+    public static void revealText(View textView) {
+        System.out.print('"');
+        System.out.print(((TextView) textView).getText().toString());
+        System.out.println('"');
     }
 }
