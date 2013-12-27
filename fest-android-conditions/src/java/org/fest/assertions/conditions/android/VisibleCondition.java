@@ -1,33 +1,36 @@
 package org.fest.assertions.conditions.android;
 
 import android.view.View;
+
 import org.fest.assertions.core.Condition;
 
-import static android.view.View.GONE;
-import static org.fest.assertions.conditions.android.HasPropertyCondition.HasPropertyConditionPrimitive;
 import static java.lang.String.format;
 
 public class VisibleCondition extends Condition<View> {
     public static final String DESCRIPTION_TEMPLATE = "visible \"%s\"";
 
-    public static final VisibleCondition INVISIBLE = new VisibleCondition(false);
-    public static final VisibleCondition VISIBLE = new VisibleCondition(true);
-    @SuppressWarnings("unchecked")
-    public static final HasPropertyConditionPrimitive NOT_DISPLAYED = new HasPropertyConditionPrimitive("visibility", GONE);
+    public static final VisibleCondition INVISIBLE = new VisibleCondition(View.INVISIBLE);
+    public static final VisibleCondition VISIBLE = new VisibleCondition(View.VISIBLE);
+    public static final VisibleCondition GONE = new VisibleCondition(View.GONE);
+    public static final VisibleCondition NOT_VISIBLE = new VisibleCondition(View.VISIBLE, true);
 
-    private final boolean expectedVisible;
+    private final int expectedVisible;
+    private boolean not;
 
-    public VisibleCondition(boolean expectedVisible) {
+    public VisibleCondition(int expectedVisible) {
+        this(expectedVisible, false);
+    }
+
+    public VisibleCondition(int expectedVisible, boolean not) {
         super(format(DESCRIPTION_TEMPLATE, expectedVisible));
+
+        this.not = not;
 
         this.expectedVisible = expectedVisible;
     }
 
     @Override
     public boolean matches(View view) {
-
-        boolean actualVisible = view.getVisibility() == View.VISIBLE;
-
-        return actualVisible == expectedVisible;
+        return (view.getVisibility() == expectedVisible) ^ not;
     }
 }

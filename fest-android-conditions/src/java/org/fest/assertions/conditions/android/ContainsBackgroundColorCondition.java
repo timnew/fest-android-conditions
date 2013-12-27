@@ -2,7 +2,6 @@ package org.fest.assertions.conditions.android;
 
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
-import android.view.ViewGroup;
 
 import org.fest.assertions.core.Condition;
 
@@ -21,21 +20,14 @@ public class ContainsBackgroundColorCondition extends Condition<View> {
 
     @Override
     public boolean matches(View view) {
+        if ((view.getBackground() instanceof ColorDrawable))
+            return false;
+
         ColorDrawable background = (ColorDrawable) view.getBackground();
 
-        if (background != null && expectedBackgroundColor == background.getColor())
-            return true;
-
-        if (view instanceof ViewGroup) {
-            ViewGroup viewGroup = (ViewGroup) view;
-            for (int i = 0; i < viewGroup.getChildCount(); i++) {
-                View childView = viewGroup.getChildAt(i);
-                if (matches(childView)) return true;
-            }
-        }
-
-        return false;
+        return expectedBackgroundColor == background.getColor();
     }
+
 
     public static ContainsBackgroundColorCondition backgroundColor(int color) {
         return new ContainsBackgroundColorCondition(color);

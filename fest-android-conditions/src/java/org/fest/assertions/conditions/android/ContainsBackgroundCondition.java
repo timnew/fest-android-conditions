@@ -22,18 +22,7 @@ public class ContainsBackgroundCondition extends Condition<View> {
     public boolean matches(View view) {
         Drawable background = view.getBackground();
 
-        if (expectedBackground.equals(background))
-            return true;
-
-        if (view instanceof ViewGroup) {
-            ViewGroup viewGroup = (ViewGroup) view;
-            for (int i = 0; i < viewGroup.getChildCount(); i++) {
-                View childView = viewGroup.getChildAt(i);
-                if (matches(childView)) return true;
-            }
-        }
-
-        return false;
+        return expectedBackground.equals(background);
     }
 
     public static ContainsBackgroundCondition background(int backgroundId) {
