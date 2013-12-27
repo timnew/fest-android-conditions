@@ -1,12 +1,12 @@
 package org.fest.assertions.conditions.android;
 
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.fest.assertions.core.Condition;
-import org.robolectric.Robolectric;
+
+import static org.robolectric.Robolectric.application;
 
 public class ContainsBackgroundCondition extends Condition<View> {
     public static final String DESCRIPTION = "background";
@@ -37,7 +37,7 @@ public class ContainsBackgroundCondition extends Condition<View> {
     }
 
     public static ContainsBackgroundCondition background(int backgroundId) {
-        Drawable background = Robolectric.application.getResources().getDrawable(backgroundId);
+        Drawable background = application.getResources().getDrawable(backgroundId);
 
         return background(background);
     }
@@ -45,12 +45,5 @@ public class ContainsBackgroundCondition extends Condition<View> {
     public static ContainsBackgroundCondition background(Drawable background) {
         return new ContainsBackgroundCondition(background);
     }
-
-    public static ContainsBackgroundCondition backgroundColor(int color) {
-        return new ContainsBackgroundCondition(new ColorDrawable(color));
-    }
-
-    public static ContainsBackgroundCondition backgroundResColor(int colorId) {
-        return new ContainsBackgroundCondition(new ColorDrawable(Robolectric.application.getResources().getColor(colorId)));
-    }
 }
+
